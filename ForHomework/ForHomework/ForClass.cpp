@@ -45,7 +45,9 @@ void ForClass::ForClass6(float a) {
 int ForClass::ForClass7(int a, int b) {
 	int sum = 0;
 
-	for (int i = a; i <= b; sum += i++);
+	for (int i = a; i <= b; i++) {
+		sum += i;
+	}
 	return sum;
 }
 
@@ -61,7 +63,7 @@ int ForClass::ForClass9(int a, int b) {
 	int sum = 0;
 
 	for (int i = a; i <= b; i++) {
-		sum += pow(i, 2);
+		sum += i * i;
 	}
 	return sum;
 }
@@ -79,7 +81,7 @@ int ForClass::ForClass11(int n) {
 	int sum = 0;
 
 	for (int i = n; i <= (2 * n); i++) {
-		sum += pow(i, 2);
+		sum += i * i;
 	}
 	return sum;
 }
@@ -105,37 +107,44 @@ void ForClass::ForClass14(int n) {
 }
 
 void ForClass::ForClass16(float a, int n) {
+	float power_of_a = 1;
+
 	for (int i = 1; i <= n; ++i) {
-		float power_of_a = pow(a, i); 
-		std::cout << power_of_a << " "; 
+		power_of_a *= a;
+		std::cout << power_of_a << " ";
 	}
 }
 
 float ForClass::ForClass17(float a, int n) {
 	float sum = 0;
+	float power_of_a = 1;
 
 	for (int i = 0; i < n; i++) {
-		sum += pow(a, i);
+		sum += power_of_a;
+		power_of_a *= a;
 	}
 	return sum;
-}
+} 
 
 float ForClass::ForClass18(float a, int n) {
 	float sum = 0;
+	float power_of_a = 1;
 	float sign = 1.0;
 
 	for (int i = 0; i < n; i++) {
-		sum += pow(a, i) * sign;
+		sum += power_of_a * sign;
+		power_of_a *= a;
 		sign = -sign;
 	}
 	return sum;
 }
 
+
 float ForClass::ForClass19(int n) {
 	float factorial = 1.0;
 
 	for (int i = 1; i <= n; i++) {
-		factorial *= (i * 1.0f);
+		factorial *= (float)i;
 	}
 	return factorial;
 }
@@ -145,18 +154,18 @@ float ForClass::ForClass20(int n) {
 	float factorial = 1.0f;
 
 	for (int i = 1; i <= n; i++) {
-		factorial *= (i * 1.0f);
+		factorial *= (float)i;
 		sum += factorial;
 	}
 	return sum;
-}
+} 
 
 float ForClass::ForClass21(int n) {
 	float sum = 0;
 	float factorial = 1.0f;
 
 	for (int i = 1; i <= n; i++) {
-		factorial *= (i * 1.0f);
+		factorial *= (float)i;
 		sum += (1/factorial);
 	}
 	return sum;
@@ -164,41 +173,48 @@ float ForClass::ForClass21(int n) {
 
 float ForClass::ForClass22(float x, int n) {
 	float sum = 0;
+	float term = 1.0f;
 	float factorial = 1.0f;
 
 	for (int i = 1; i <= n; i++) {
-		factorial *= (i * 1.0f);
-		sum += (pow(x,i) / factorial);
+		term *= x / i;
+		sum += term;
 	}
 	return sum + 1;
 }
 
+
 float ForClass::ForClass24(float x, int n) {
 	float sum = 0;
+	float term = 1.0f;
 	float factorial = 1.0f;
 	float sign = -1.0;
 
 	for (int i = 1; i <= n; i++) {
-		factorial *= (i * 1.0f);
+		term *= x / i;
 		if (i % 2 == 0) {
-			sum += sign * (pow(x, i) / factorial);
+			sum += sign * term;
 			sign = -sign;
 		}
 	}
 	return sum + 1;
 }
 
+
 float ForClass::ForClass26(float x, int n) {
-	int sign = 1;
 	float sum = 0;
+	int sign = 1;
+	float term = x;
 
 	for (int i = 1; i < n; i += 2) {
-		sum += pow(x, i) / i;
+		sum += term / i;
+		term *= x * x;
 		sign = -sign;
 	}
 
 	return sum;
 }
+
 
 float ForClass::ForClass27(float x, int n) {
 	float sum = x;
@@ -218,15 +234,18 @@ float ForClass::ForClass28(float x, int n) {
 	double result = 1.0;
 	double numerator = 1.0;
 	double denominator = 2.0;
+	double term = x;
 
 	for (int i = 1; i <= n; ++i) {
 		numerator *= (2 * i - 1);
-		result += pow(-1, i - 1) * numerator * pow(x, i) / denominator;
+		result += (i % 2 == 0 ? -1 : 1) * numerator * term / denominator;
+		term *= x;
 		denominator *= (2 * i);
 	}
 
-	return result;
+	return static_cast<float>(result);
 }
+
 
 
 void ForClass::ForClass29(int n, float a, float b) {
